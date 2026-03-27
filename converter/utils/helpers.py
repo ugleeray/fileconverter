@@ -31,16 +31,28 @@ PRESENTATION_FORMATS = {"pptx", "pdf"}
 SPREADSHEET_FORMATS = {"xlsx", "csv"}
 
 
-def ensure_output_dir(output_dir: str | None) -> Path:
-    """Ensure the output directory exists and return its Path."""
-    path = Path(output_dir) if output_dir else DEFAULT_OUTPUT_DIR
+def ensure_output_dir(output_dir: str | None, input_path: str | None = None) -> Path:
+    """Ensure the output directory exists and return its Path.
+
+    If output_dir is None and input_path is given, uses the input file's directory.
+    Falls back to DEFAULT_OUTPUT_DIR only when neither is provided.
+    """
+    if output_dir:
+        path = Path(output_dir)
+    elif input_path:
+        path = Path(input_path).parent
+    else:
+        path = DEFAULT_OUTPUT_DIR
     path.mkdir(parents=True, exist_ok=True)
     return path
 
 
 def get_output_path(input_path: str, target_format: str, output_dir: str | None) -> Path:
     """Generate the output file path for a conversion."""
-    out_dir = ensure_output_dir(output_dir)
+    if output_dir:
+        out_dir = ensure_output_dir(output_dir)
+    else:
+        out_dir = Path(input_path).parent
     input_name = Path(input_path).stem
     ext = FORMAT_EXTENSIONS.get(target_format.lower(), f".{target_format}")
     return out_dir / f"{input_name}{ext}"

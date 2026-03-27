@@ -38,7 +38,7 @@ def images_to_pdf(input_paths: list[str], output_path: str | None = None, output
         out = Path(output_path)
         out.parent.mkdir(parents=True, exist_ok=True)
     else:
-        out_dir = ensure_output_dir(output_dir)
+        out_dir = ensure_output_dir(output_dir, input_paths[0])
         stem = Path(input_paths[0]).stem
         out = out_dir / f"{stem}.pdf"
 
@@ -72,7 +72,7 @@ def pdf_to_images(
     from pdf2image import convert_from_path
 
     input_file = validate_input_file(input_path)
-    out_dir = ensure_output_dir(output_dir)
+    out_dir = ensure_output_dir(output_dir, input_path)
     stem = input_file.stem
 
     images = convert_from_path(str(input_file))

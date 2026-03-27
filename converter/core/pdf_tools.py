@@ -21,7 +21,7 @@ def merge_pdfs(input_paths: list[str], output_path: str | None = None, output_di
         out = Path(output_path)
         out.parent.mkdir(parents=True, exist_ok=True)
     else:
-        out_dir = ensure_output_dir(output_dir)
+        out_dir = ensure_output_dir(output_dir, input_paths[0])
         out = out_dir / "merged.pdf"
 
     merger = PdfMerger()
@@ -41,7 +41,7 @@ def split_pdf_pages(input_path: str, pages: str, output_dir: str | None = None) 
     from pypdf import PdfReader, PdfWriter
 
     input_file = validate_input_file(input_path)
-    out_dir = ensure_output_dir(output_dir)
+    out_dir = ensure_output_dir(output_dir, input_path)
     stem = input_file.stem
 
     reader = PdfReader(str(input_file))
@@ -67,7 +67,7 @@ def split_pdf_each(input_path: str, output_dir: str | None = None) -> list[Path]
     from pypdf import PdfReader, PdfWriter
 
     input_file = validate_input_file(input_path)
-    out_dir = ensure_output_dir(output_dir)
+    out_dir = ensure_output_dir(output_dir, input_path)
     stem = input_file.stem
 
     reader = PdfReader(str(input_file))

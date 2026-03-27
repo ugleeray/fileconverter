@@ -32,7 +32,7 @@ def cli():
 @cli.command()
 @click.argument("files", nargs=-1, required=True)
 @click.option("--to", "target", required=True, help="Target format (e.g., pdf, docx, png, csv).")
-@click.option("--output-dir", "-o", default=None, help="Output directory (default: ./output/).")
+@click.option("--output-dir", "-o", default=None, help="Output directory (default: same folder as input file).")
 def convert(files, target, output_dir):
     """Convert files to another format.
 
@@ -145,7 +145,7 @@ def _md_to_html(input_path: str, output_dir: str | None):
 @cli.command()
 @click.argument("files", nargs=-1, required=True)
 @click.option("--output", "-o", default=None, help="Output file path (default: ./output/merged.pdf).")
-@click.option("--output-dir", default=None, help="Output directory (used if --output is not set).")
+@click.option("--output-dir", default=None, help="Output directory (default: same folder as first input file).")
 def merge(files, output, output_dir):
     """Merge multiple PDF files into one.
 
@@ -187,7 +187,7 @@ def merge(files, output, output_dir):
 @click.argument("file", required=True)
 @click.option("--pages", "-p", default=None, help="Page ranges to extract (e.g., '1-3,5,8-10').")
 @click.option("--each", is_flag=True, default=False, help="Split every page into its own PDF.")
-@click.option("--output-dir", "-o", default=None, help="Output directory (default: ./output/).")
+@click.option("--output-dir", "-o", default=None, help="Output directory (default: same folder as input file).")
 def split(file, pages, each, output_dir):
     """Split a PDF into separate files.
 
@@ -228,7 +228,7 @@ def split(file, pages, each, output_dir):
 @click.argument("files", nargs=-1, required=True)
 @click.option("--quality", "-q", default=80, type=int, help="Compression quality 1-100 (default: 80).")
 @click.option("--resize", "-r", default=None, help="Resize to WIDTHxHEIGHT (e.g., 1920x1080).")
-@click.option("--output-dir", "-o", default=None, help="Output directory (default: ./output/).")
+@click.option("--output-dir", "-o", default=None, help="Output directory (default: same folder as input file).")
 def compress(files, quality, resize, output_dir):
     """Compress image files (PNG, JPG, WEBP) to reduce file size.
 
@@ -320,3 +320,4 @@ def show_formats():
 
 if __name__ == "__main__":
     cli()
+

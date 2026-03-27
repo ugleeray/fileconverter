@@ -19,6 +19,11 @@ fileconverter --help
 
 > **Note:** For PDF-to-image conversions, you also need [Poppler](https://github.com/osber/poppler-windows/releases). Download it and add the `bin/` folder to your system PATH.
 
+## Changelog
+
+### v1.1.0
+- **Output now saves to the same folder as the input file by default** (previously always saved to `./output/`). Use `--output-dir` / `-o` to override.
+
 ---
 
 ## Commands
@@ -143,7 +148,7 @@ fileconverter/
 ├── requirements.txt        # Python dependencies
 ├── setup.py                # Package installer
 ├── input/                  # Place input files here (optional)
-├── output/                 # Converted files go here by default
+├── output/                 # Optional: use --output-dir to send files here
 └── converter/
     ├── cli.py              # CLI commands
     ├── core/
@@ -161,8 +166,8 @@ fileconverter/
 
 ## Tips
 
-- All commands default to saving output in the `./output/` folder
-- Use `--output-dir` / `-o` to change the output location
+- All commands default to saving output in the **same folder as the input file**
+- Use `--output-dir` / `-o` to save to a different location instead
 - DOCX/PPTX to PDF requires Microsoft Office installed on Windows
 - PDF to images requires Poppler installed and on PATH
 - Use `fileconverter <command> --help` for detailed options on any command

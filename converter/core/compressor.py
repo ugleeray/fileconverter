@@ -26,7 +26,7 @@ def compress_image(
     from PIL import Image
 
     input_file = validate_input_file(input_path)
-    out_dir = ensure_output_dir(output_dir)
+    out_dir = ensure_output_dir(output_dir, input_path)
     ext = input_file.suffix.lower()
 
     original_size = os.path.getsize(input_file)
